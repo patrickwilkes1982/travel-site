@@ -1182,6 +1182,10 @@ instead edit GULP/templates/sprite.css*/
   }
 }
 
+.site-header__menu-content--is-visible{
+  display: block;
+}
+
 .primary-nav--pull-right{
   float: right;
 }
