@@ -1,47 +1,50 @@
-.headline{
-	font-size: 1.9rem;
-	font-weight: 300;
-	color: $mainBlue;
+.headline {
+  font-size: 1.9rem;
+  font-weight: 300;
+  color: $mainBlue;
 
-	@mixin atSmall{
-		font-size: 2.875rem;
-	}
-	
-	&__centered{
-		text-align: center;
-	}
+  @mixin atSmall {
+    font-size: 2.875rem;
+  }
 
-	&__orange{
-		color: $mainYellow;
-	}
+  &--centered {
+    text-align: center;
+  }
 
-	&__small{
-		font-size: 1.2rem;
-		@mixin atSmall{
-			font-size: 1.875rem;
-		}
-	}
+  &--orange {
+    color: $mainOrange;
+  }
 
-	&__narrow{
-		max-width: 500px;
-		margin-right: auto;
-		margin-left: auto;
-	}
+  &--small {
+    font-size: 1.2rem;
+    @mixin atSmall {
+      font-size: 1.875rem;
+    }
+  }
 
-	&__light{
-		font-weight: 100;
-	}
+  &--narrow {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-	&__b-margin-small{
-		margin-bottom: .5em;
-	}
+  &--light {
+    font-weight: 100;
+  }
 
-	&__b-margin-large{
-		margin-bottom: 1.6em;
-	}
-	
-	&__no-t-margin{
-		margin-top: 0;
-	}
-	
+  strong {
+    font-weight: 400;
+  }
+
+  &--b-margin-small {
+    margin-bottom: .5em;
+  }
+
+  &--b-margin-large {
+    margin-bottom: 1.6em;
+  }
+
+  &--no-t-margin {
+    margin-top: 0;
+  }
 }

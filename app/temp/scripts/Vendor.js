@@ -63,10 +63,6 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	/*!
 	 * modernizr v3.3.1
 	 * Build http://modernizr.com/download?-flexbox-svg-setclasses-dontmin
@@ -91,8 +87,9 @@
 	 * of control over the experience.
 	*/
 
-	;(function (window, document, undefined) {
+	;(function(window, document, undefined){
 	  var tests = [];
+	  
 
 	  /**
 	   *
@@ -119,7 +116,7 @@
 	    _q: [],
 
 	    // Stub these for people who are listening
-	    on: function on(test, cb) {
+	    on: function(test, cb) {
 	      // I don't really think people should do this, but we can
 	      // safe guard it a bit.
 	      // -- NOTE:: this gets WAY overridden in src/addTest for actual async tests.
@@ -127,29 +124,34 @@
 	      // but the code to *disallow* sync tests in the real version of this
 	      // function is actually larger than this.
 	      var self = this;
-	      setTimeout(function () {
+	      setTimeout(function() {
 	        cb(self[test]);
 	      }, 0);
 	    },
 
-	    addTest: function addTest(name, fn, options) {
-	      tests.push({ name: name, fn: fn, options: options });
+	    addTest: function(name, fn, options) {
+	      tests.push({name: name, fn: fn, options: options});
 	    },
 
-	    addAsyncTest: function addAsyncTest(fn) {
-	      tests.push({ name: null, fn: fn });
+	    addAsyncTest: function(fn) {
+	      tests.push({name: null, fn: fn});
 	    }
 	  };
 
+	  
+
 	  // Fake some of Object.create so we can force non test results to be non "own" properties.
-	  var Modernizr = function Modernizr() {};
+	  var Modernizr = function() {};
 	  Modernizr.prototype = ModernizrProto;
 
 	  // Leak modernizr globally when you `require` it rather than force it here.
 	  // Overwrite name so constructor name is nicer :D
 	  Modernizr = new Modernizr();
 
+	  
+
 	  var classes = [];
+	  
 
 	  /**
 	   * is returns a boolean if the typeof an obj is exactly type.
@@ -162,7 +164,7 @@
 	   */
 
 	  function is(obj, type) {
-	    return (typeof obj === 'undefined' ? 'undefined' : _typeof(obj)) === type;
+	    return typeof obj === type;
 	  }
 	  ;
 
@@ -206,6 +208,7 @@
 	        // Run the test, or use the raw value if it's not a function
 	        result = is(feature.fn, 'function') ? feature.fn() : feature.fn;
 
+
 	        // Set each of the names on the Modernizr object
 	        for (nameIdx = 0; nameIdx < featureNames.length; nameIdx++) {
 	          featureName = featureNames[nameIdx];
@@ -244,6 +247,7 @@
 	   */
 
 	  var docElement = document.documentElement;
+	  
 
 	  /**
 	   * A convenience helper to check if the document we are running in is an SVG document
@@ -253,6 +257,7 @@
 	   */
 
 	  var isSVG = docElement.nodeName.toLowerCase() === 'svg';
+	  
 
 	  /**
 	   * setClasses takes an array of class names and adds them to the root element
@@ -284,6 +289,7 @@
 	      className += ' ' + classPrefix + classes.join(' ' + classPrefix);
 	      isSVG ? docElement.className.baseVal = className : docElement.className = className;
 	    }
+
 	  }
 
 	  ;
@@ -293,19 +299,24 @@
 	   *   elem.style.WebkitBorderRadius
 	   * instead of something like the following, which would be technically incorrect:
 	   *   elem.style.webkitBorderRadius
-	    * Webkit ghosts their properties in lowercase but Opera & Moz do not.
+
+	   * Webkit ghosts their properties in lowercase but Opera & Moz do not.
 	   * Microsoft uses a lowercase `ms` instead of the correct `Ms` in IE8+
 	   *   erik.eae.net/archives/2008/03/10/21.48.10/
-	    * More here: github.com/Modernizr/Modernizr/issues/issue/21
+
+	   * More here: github.com/Modernizr/Modernizr/issues/issue/21
 	   *
 	   * @access private
 	   * @returns {string} The string representing the vendor-specific style properties
 	   */
 
 	  var omPrefixes = 'Moz O ms Webkit';
+	  
 
-	  var cssomPrefixes = ModernizrProto._config.usePrefixes ? omPrefixes.split(' ') : [];
+	  var cssomPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.split(' ') : []);
 	  ModernizrProto._cssomPrefixes = cssomPrefixes;
+	  
+
 
 	  /**
 	   * contains checks to see if a string contains another string
@@ -359,9 +370,11 @@
 	  };
 
 	  // Clean up this element
-	  Modernizr._q.push(function () {
+	  Modernizr._q.push(function() {
 	    delete modElem.elem;
 	  });
+
+	  
 
 	  var mStyle = {
 	    style: modElem.elem.style
@@ -369,9 +382,11 @@
 
 	  // kill ref for gc, must happen before mod.elem is removed, so we unshift on to
 	  // the front of the queue.
-	  Modernizr._q.unshift(function () {
+	  Modernizr._q.unshift(function() {
 	    delete mStyle.style;
 	  });
+
+	  
 
 	  /**
 	   * getBody returns the body of a document, or an element that can stand in for
@@ -467,6 +482,7 @@
 	    }
 
 	    return !!ret;
+
 	  }
 
 	  ;
@@ -482,7 +498,7 @@
 	   */
 
 	  function domToCSS(name) {
-	    return name.replace(/([A-Z])/g, function (str, m1) {
+	    return name.replace(/([A-Z])/g, function(str, m1) {
 	      return '-' + m1.toLowerCase();
 	    }).replace(/^ms-/, '-ms-');
 	  }
@@ -515,16 +531,16 @@
 	    }
 	    // Otherwise fall back to at-rule (for Opera 12.x)
 	    else if ('CSSSupportsRule' in window) {
-	        // Build a condition string for every prefixed variant
-	        var conditionText = [];
-	        while (i--) {
-	          conditionText.push('(' + domToCSS(props[i]) + ':' + value + ')');
-	        }
-	        conditionText = conditionText.join(' or ');
-	        return injectElementWithStyles('@supports (' + conditionText + ') { #modernizr { position: absolute; } }', function (node) {
-	          return getComputedStyle(node, null).position == 'absolute';
-	        });
+	      // Build a condition string for every prefixed variant
+	      var conditionText = [];
+	      while (i--) {
+	        conditionText.push('(' + domToCSS(props[i]) + ':' + value + ')');
 	      }
+	      conditionText = conditionText.join(' or ');
+	      return injectElementWithStyles('@supports (' + conditionText + ') { #modernizr { position: absolute; } }', function(node) {
+	        return getComputedStyle(node, null).position == 'absolute';
+	      });
+	    }
 	    return undefined;
 	  }
 	  ;
@@ -540,7 +556,7 @@
 	   */
 
 	  function cssToDOM(name) {
-	    return name.replace(/([a-z])-([a-z])/g, function (str, m1, m2) {
+	    return name.replace(/([a-z])-([a-z])/g, function(str, m1, m2) {
 	      return m1 + m2.toUpperCase();
 	    }).replace(/^-/, '');
 	  }
@@ -628,9 +644,9 @@
 	        // Otherwise just return true, or the property name if this is a
 	        // `prefixed()` call
 	        else {
-	            cleanElems();
-	            return prefixed == 'pfx' ? prop : true;
-	          }
+	          cleanElems();
+	          return prefixed == 'pfx' ? prop : true;
+	        }
 	      }
 	    }
 	    cleanElems();
@@ -657,8 +673,9 @@
 	   * ```
 	   */
 
-	  var domPrefixes = ModernizrProto._config.usePrefixes ? omPrefixes.toLowerCase().split(' ') : [];
+	  var domPrefixes = (ModernizrProto._config.usePrefixes ? omPrefixes.toLowerCase().split(' ') : []);
 	  ModernizrProto._domPrefixes = domPrefixes;
+	  
 
 	  /**
 	   * fnBind is a super small [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) polyfill.
@@ -671,7 +688,7 @@
 	   */
 
 	  function fnBind(fn, that) {
-	    return function () {
+	    return function() {
 	      return fn.apply(that, arguments);
 	    };
 	  }
@@ -733,7 +750,7 @@
 	  function testPropsAll(prop, prefixed, elem, value, skipValueTest) {
 
 	    var ucProp = prop.charAt(0).toUpperCase() + prop.slice(1),
-	        props = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
+	    props = (prop + ' ' + cssomPrefixes.join(ucProp + ' ') + ucProp).split(' ');
 
 	    // did they call .prefixed('boxSizing') or are we just testing a prop?
 	    if (is(prefixed, 'string') || is(prefixed, 'undefined')) {
@@ -741,7 +758,7 @@
 
 	      // otherwise, they called .prefixed('requestAnimationFrame', window[, elem])
 	    } else {
-	      props = (prop + ' ' + domPrefixes.join(ucProp + ' ') + ucProp).split(' ');
+	      props = (prop + ' ' + (domPrefixes).join(ucProp + ' ') + ucProp).split(' ');
 	      return testDOMProps(props, prefixed, elem);
 	    }
 	  }
@@ -752,6 +769,8 @@
 	  // Note that the property names must be provided in the camelCase variant.
 	  // Modernizr.testAllProps('boxSizing')
 	  ModernizrProto.testAllProps = testPropsAll;
+
+	  
 
 	  /**
 	   * testAllProps determines whether a given CSS property is supported in the browser
@@ -794,52 +813,53 @@
 	    return testPropsAll(prop, undefined, undefined, value, skipValueTest);
 	  }
 	  ModernizrProto.testAllProps = testAllProps;
-
-	  /*!
-	  {
-	    "name": "Flexbox",
-	    "property": "flexbox",
-	    "caniuse": "flexbox",
-	    "tags": ["css"],
-	    "notes": [{
-	      "name": "The _new_ flexbox",
-	      "href": "http://dev.w3.org/csswg/css3-flexbox"
-	    }],
-	    "warnings": [
-	      "A `true` result for this detect does not imply that the `flex-wrap` property is supported; see the `flexwrap` detect."
-	    ]
-	  }
-	  !*/
-	  /* DOC
-	  Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows easy manipulation of layout order and sizing within a container.
-	  */
+	  
+	/*!
+	{
+	  "name": "Flexbox",
+	  "property": "flexbox",
+	  "caniuse": "flexbox",
+	  "tags": ["css"],
+	  "notes": [{
+	    "name": "The _new_ flexbox",
+	    "href": "http://dev.w3.org/csswg/css3-flexbox"
+	  }],
+	  "warnings": [
+	    "A `true` result for this detect does not imply that the `flex-wrap` property is supported; see the `flexwrap` detect."
+	  ]
+	}
+	!*/
+	/* DOC
+	Detects support for the Flexible Box Layout model, a.k.a. Flexbox, which allows easy manipulation of layout order and sizing within a container.
+	*/
 
 	  Modernizr.addTest('flexbox', testAllProps('flexBasis', '1px', true));
 
-	  /*!
-	  {
-	    "name": "SVG",
-	    "property": "svg",
-	    "caniuse": "svg",
-	    "tags": ["svg"],
-	    "authors": ["Erik Dahlstrom"],
-	    "polyfills": [
-	      "svgweb",
-	      "raphael",
-	      "amplesdk",
-	      "canvg",
-	      "svg-boilerplate",
-	      "sie",
-	      "dojogfx",
-	      "fabricjs"
-	    ]
-	  }
-	  !*/
-	  /* DOC
-	  Detects support for SVG in `<embed>` or `<object>` elements.
-	  */
+	/*!
+	{
+	  "name": "SVG",
+	  "property": "svg",
+	  "caniuse": "svg",
+	  "tags": ["svg"],
+	  "authors": ["Erik Dahlstrom"],
+	  "polyfills": [
+	    "svgweb",
+	    "raphael",
+	    "amplesdk",
+	    "canvg",
+	    "svg-boilerplate",
+	    "sie",
+	    "dojogfx",
+	    "fabricjs"
+	  ]
+	}
+	!*/
+	/* DOC
+	Detects support for SVG in `<embed>` or `<object>` elements.
+	*/
 
 	  Modernizr.addTest('svg', !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect);
+
 
 	  // Run each test
 	  testRunner();
@@ -858,7 +878,9 @@
 	  // Leak Modernizr namespace
 	  window.Modernizr = Modernizr;
 
-	  ;
+
+	;
+
 	})(window, document);
 
 /***/ },
@@ -2532,7 +2554,7 @@
 				running = false;
 			};
 
-			var rafBatch = function(fn){
+			return function(fn){
 				if(running){
 					fn.apply(this, arguments);
 				} else {
@@ -2544,10 +2566,6 @@
 					}
 				}
 			};
-
-			rafBatch._lsFlush = run;
-
-			return rafBatch;
 		})();
 
 		var rAFIt = function(fn, simple){
@@ -2569,7 +2587,7 @@
 			var running;
 			var lastTime = 0;
 			var gDelay = 125;
-			var RIC_DEFAULT_TIMEOUT = 666;
+			var RIC_DEFAULT_TIMEOUT = 999;
 			var rICTimeout = RIC_DEFAULT_TIMEOUT;
 			var run = function(){
 				running = false;
@@ -2591,7 +2609,7 @@
 			return function(isPriority){
 				var delay;
 				if((isPriority = isPriority === true)){
-					rICTimeout = 44;
+					rICTimeout = 66;
 				}
 
 				if(running){
@@ -2658,7 +2676,7 @@
 			var currentExpand = 0;
 
 			var isLoading = 0;
-			var lowRuns = -1;
+			var lowRuns = 0;
 
 			var resetPreloading = function(e){
 				isLoading--;
@@ -2708,17 +2726,17 @@
 
 					if(preloadExpand == null){
 						if(!('expand' in lazySizesConfig)){
-							lazySizesConfig.expand = docElem.clientHeight > 500 && docElem.clientWidth > 500 ? 500 : 370;
+							lazySizesConfig.expand = docElem.clientHeight > 500 ? 500 : 400;
 						}
 
 						defaultExpand = lazySizesConfig.expand;
 						preloadExpand = defaultExpand * lazySizesConfig.expFactor;
 					}
 
-					if(currentExpand < preloadExpand && isLoading < 1 && lowRuns > 2 && loadMode > 2 && !document.hidden){
+					if(currentExpand < preloadExpand && isLoading < 1 && lowRuns > 3 && loadMode > 2){
 						currentExpand = preloadExpand;
 						lowRuns = 0;
-					} else if(loadMode > 1 && lowRuns > 1 && isLoading < 6){
+					} else if(loadMode > 1 && lowRuns > 2 && isLoading < 6){
 						currentExpand = defaultExpand;
 					} else {
 						currentExpand = shrinkExpand;
@@ -2960,11 +2978,7 @@
 						setTimeout(onload, 20000);
 					}
 
-					if(lazyloadElems.length){
-						checkElements();
-					} else {
-						throttledCheckElements();
-					}
+					throttledCheckElements(lazyloadElems.length > 0);
 				},
 				checkElems: throttledCheckElements,
 				unveil: unveilElement
